@@ -1,0 +1,12 @@
+﻿save
+пересобрать
+dotnet restore
+heroku login
+heroku container:login
+docker ps -a
+docker build -t counter-image -f Dockerfile .
+docker create --name core-counter-five counter-image-five
+docker tag counter-image-six registry.heroku.com/app-six/web
+docker push registry.heroku.com/app-six/web
+heroku container:release web -a=app-six
+heroku logs --tail -a=app-six
